@@ -1,0 +1,14 @@
+spring:
+  flyway:
+    url: jdbc:mysql://localhost:3306/todo_list
+    password: admin
+    user: admin
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: 'admin'
+    password: 'admin'
+    url: jdbc:mysql://localhost:3306/todo_list
+
+  exposed:
+    show-sql: true

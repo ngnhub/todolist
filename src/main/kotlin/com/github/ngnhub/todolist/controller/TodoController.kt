@@ -1,34 +1,31 @@
 package com.github.ngnhub.todolist.controller
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import com.github.ngnhub.todolist.model.TodoItem
+import com.github.ngnhub.todolist.model.TodoItemCreate
+import com.github.ngnhub.todolist.model.TodoItemUpdate
+import com.github.ngnhub.todolist.service.TodoItemService
+import jakarta.validation.Valid
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
+@Validated
 @RestController
 @RequestMapping("/")
-class TodoController {
-
-    companion object {
-        val logger: Logger = LoggerFactory.getLogger(TodoController::class.java.simpleName)
-    }
+class TodoController(private val service: TodoItemService) {
 
     @PostMapping
-    fun create() {
-        logger.info("Creates the item")
+    fun create(@Valid @RequestBody create: TodoItemCreate) {
+        service.create(create)
     }
 
     @GetMapping("/{id}")
-    fun getBy(@PathVariable id: Long): Any {
-        return "Dummy item"
+    fun getBy(@PathVariable id: Long): TodoItem {
+        return service.getBy(id)
     }
 
     @PutMapping
-    fun markAs(status: ItemStatus) {
-        logger.info("Changing status to {}", status)
-    }
-
-    enum class ItemStatus {
-        DONE, DELETED
+    fun update(@Valid @RequestBody update: TodoItemUpdate) {
+        service.update(update)
     }
 }
