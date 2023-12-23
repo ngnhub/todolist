@@ -1,6 +1,7 @@
 package com.github.ngnhub.todolist.controller
 
-import com.github.ngnhub.todolist.logger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -8,9 +9,13 @@ import java.util.*
 @RequestMapping("/")
 class TodoController {
 
+    companion object {
+        val logger: Logger = LoggerFactory.getLogger(TodoController::class.java.simpleName)
+    }
+
     @PostMapping
     fun create() {
-        logger().info("Creates the item")
+        logger.info("Creates the item")
     }
 
     @GetMapping("/{id}")
@@ -20,7 +25,7 @@ class TodoController {
 
     @PutMapping
     fun markAs(status: ItemStatus) {
-        logger().info("Changing status to {}", status)
+        logger.info("Changing status to {}", status)
     }
 
     enum class ItemStatus {
