@@ -1,13 +1,17 @@
 package com.github.ngnhub.todolist.mapper
 
 import com.github.ngnhub.todolist.dao.entity.TodoItemEntity
+import com.github.ngnhub.todolist.dao.entity.TodoItemEntityCreate
 import com.github.ngnhub.todolist.model.TodoItem
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
+import com.github.ngnhub.todolist.model.TodoItemCreate
 
-@Mapper
-interface TodoItemMapper {
+object TodoItemMapper {
 
-    @Mapping(target = "id", source = "entity.id.value")
-    fun mapToDto(entity: TodoItemEntity): TodoItem
+    fun TodoItemEntity.toDto() = TodoItem(id.value, title, description, createdAt, completeUntil, status)
+
+    fun TodoItemCreate.toCreateEntity() = TodoItemEntityCreate(
+        title = title,
+        description = description,
+        completeUntil = completeUntil
+    )
 }

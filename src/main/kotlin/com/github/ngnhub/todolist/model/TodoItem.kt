@@ -7,10 +7,10 @@ import java.time.Instant
 data class TodoItem(
     val id: Long,
     val title: String,
-    val description: String,
+    val description: String?,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     val createdAt: Instant,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    val completeUntil: Instant,
+    val completeUntil: Instant?,
     val status: ItemStatus
 )

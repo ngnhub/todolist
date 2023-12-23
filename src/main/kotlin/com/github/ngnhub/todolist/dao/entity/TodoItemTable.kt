@@ -5,12 +5,12 @@ import org.jetbrains.exposed.sql.javatime.timestamp
 
 object TodoItemTable : LongIdTable("todo_item") {
     val title = text("title")
-    val description = text("description")
+    val description = text("description").nullable()
     val createdAt = timestamp("created_at")
-    val completeUntil = timestamp("complete_until")
+    val completeUntil = timestamp("complete_until").nullable()
     val status = enumerationByName<ItemStatus>("status", 20)
 
     enum class ItemStatus {
-        DONE, CANCELED
+        OPEN, DONE, CANCELED
     }
 }

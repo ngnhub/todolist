@@ -1,17 +1,21 @@
 package com.github.ngnhub.todolist.controller
 
+import com.github.ngnhub.todolist.dao.entity.TodoItemTable.ItemStatus
 import com.github.ngnhub.todolist.logger
+import com.github.ngnhub.todolist.model.TodoItemCreate
 import com.github.ngnhub.todolist.service.TodoItemService
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
+@Validated
 @RestController
 @RequestMapping("/")
 class TodoController(private val service: TodoItemService) {
 
     @PostMapping
-    fun create() {
-        logger().info("Creates the item")
+    fun create(@RequestBody create: TodoItemCreate) {
+        service.create(create)
     }
 
     @GetMapping("/{id}")
@@ -22,9 +26,5 @@ class TodoController(private val service: TodoItemService) {
     @PutMapping
     fun markAs(status: ItemStatus) {
         logger().info("Changing status to {}", status)
-    }
-
-    enum class ItemStatus {
-        DONE, DELETED
     }
 }
