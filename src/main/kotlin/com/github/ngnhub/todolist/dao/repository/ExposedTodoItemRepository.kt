@@ -12,7 +12,7 @@ class ExposedTodoItemRepository : TodoItemRepository {
 
     @Transactional(readOnly = true) // Exposed requires transaction even for reading. srsly?
     override fun getBy(id: Long): TodoItemEntity {
-        return TodoItemEntity.findById(id) ?: throw NotFoundException("Item with id $id not found")
+        return TodoItemEntity.findById(id) ?: throw NotFoundException("Item with id $id was not found")
     }
 
     @Transactional
