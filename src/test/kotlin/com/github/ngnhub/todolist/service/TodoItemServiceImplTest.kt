@@ -30,14 +30,14 @@ class TodoItemServiceImplTest {
 
     @Test
     fun `getBy id should return a TodoItem`() {
-        // Arrange
+        // given
         val expectedTodoItem = getTodoItemEntity()
         every { repository.getBy(DEFAULT_ID) } returns expectedTodoItem
 
-        // Act
+        // when
         val actual = service.getBy(DEFAULT_ID)
 
-        // Assert
+        // then
         assertEquals(expectedTodoItem.toDto(), actual)
         verify(exactly = 1) { repository.getBy(DEFAULT_ID) }
     }
@@ -65,15 +65,15 @@ class TodoItemServiceImplTest {
 
     @Test
     fun `update should modify an existing TodoItem`() {
-        // Arrange
+        // given
         val update = getTodoItemUpdate()
         val slot = slot<TodoItemEntityUpdate>()
         every { repository.update(capture(slot)) } returns Unit
 
-        // Act
+        // when
         service.update(update)
 
-        // Assert
+        // then
         val captured = slot.captured
         val actual = update.toEntity()
 
