@@ -15,6 +15,7 @@ ext {
     swaggerVersion = "2.3.0"
     mapstructVersion = "1.5.5.Final"
     mockKVersion = "1.13.8"
+    assertJVersion = "3.24.2"
 }
 
 java {
@@ -44,6 +45,7 @@ dependencies {
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "io.mockk:mockk:$mockKVersion"
+    testImplementation "org.assertj:assertj-core:$assertJVersion"
 }
 
 tasks.withType(KotlinCompile) {

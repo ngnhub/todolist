@@ -9,5 +9,5 @@ data class TodoItemCreate(
     val description: String,
     @field:Future
     @field:DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    val completeUntil: Instant,
+    val completeUntil: Instant
 )

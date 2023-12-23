@@ -2,10 +2,15 @@ package com.github.ngnhub.todolist.factory
 
 import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemEntity
 import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemEntityCreate
+import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemTable
 import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemTable.ItemStatus.DONE
 import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemTable.ItemStatus.OPEN
+import com.github.ngnhub.todolist.model.TodoItem
+import com.github.ngnhub.todolist.model.TodoItemCreate
+import com.github.ngnhub.todolist.model.TodoItemUpdate
 import io.mockk.every
 import io.mockk.mockk
+import org.jetbrains.exposed.dao.id.EntityID
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -13,14 +18,15 @@ import java.time.temporal.ChronoUnit
 
 object TestTodoItemFactory {
 
-    private val createdAt: Instant = ZonedDateTime
+    val createdAt: Instant = ZonedDateTime
         .of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("CET"))
         .toInstant()
     private val completeUntil: Instant = createdAt.plus(1, ChronoUnit.DAYS)
 
     fun getTodoItemEntity(): TodoItemEntity {
-        val entity = mockk<TodoItemEntity>()
+        val entity = mockk<TodoItemEntity>(relaxed = true)
         return entity.apply {
+            every { id } returns EntityID(1L, TodoItemTable)
             every { title } returns "Test title"
             every { description } returns "Test description"
             every { createdAt } returns TestTodoItemFactory.createdAt
@@ -33,6 +39,20 @@ object TestTodoItemFactory {
         "Test title",
         "Test description",
         createdAt,
+        completeUntil,
+        DONE
+    )
+
+    fun getTodoItemCreate() = TodoItemCreate(
+        "Test title",
+        "Test description",
+        completeUntil,
+    )
+
+    fun getTodoItemUpdate() = TodoItemUpdate(
+        DEFAULT_ID,
+        "Test title",
+        "Test description",
         completeUntil,
         DONE
     )
