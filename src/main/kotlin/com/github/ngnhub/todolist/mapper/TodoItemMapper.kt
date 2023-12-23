@@ -9,9 +9,22 @@ import com.github.ngnhub.todolist.model.TodoItemUpdate
 
 object TodoItemMapper {
 
-    fun TodoItemEntity.toDto() = TodoItem(id.value, title, description, createdAt, completeUntil, status)
+    fun TodoItemEntity.toDto() = TodoItem(
+        id.value,
+        title,
+        description,
+        createdAt,
+        completeUntil,
+        status
+    )
 
-    fun TodoItemUpdate.toEntity() = TodoItemEntityUpdate(id, title, description, completeUntil, status)
+    fun TodoItemUpdate.toEntity() = TodoItemEntityUpdate(
+        id,
+        title,
+        description,
+        completeUntil,
+        status
+    )
 
     fun TodoItemCreate.toCreateEntity() = TodoItemEntityCreate(
         title = title,

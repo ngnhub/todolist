@@ -14,6 +14,8 @@ ext {
     exposedVersion = "0.45.0"
     swaggerVersion = "2.3.0"
     mapstructVersion = "1.5.5.Final"
+    mockKVersion = "1.13.8"
+    assertJVersion = "3.24.2"
 }
 
 java {
@@ -32,16 +34,18 @@ dependencies {
 
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
     implementation "org.jetbrains.kotlin:kotlin-reflect"
-    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${swaggerVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion"
 
     // DB
     implementation "com.mysql:mysql-connector-j:8.2.0"
     implementation "org.flywaydb:flyway-core"
     implementation "org.flywaydb:flyway-mysql"
-    implementation "org.jetbrains.exposed:exposed-spring-boot-starter:${exposedVersion}"
-    implementation "org.jetbrains.exposed:exposed-java-time:${exposedVersion}"
+    implementation "org.jetbrains.exposed:exposed-spring-boot-starter:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-java-time:$exposedVersion"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "io.mockk:mockk:$mockKVersion"
+    testImplementation "org.assertj:assertj-core:$assertJVersion"
 }
 
 tasks.withType(KotlinCompile) {
