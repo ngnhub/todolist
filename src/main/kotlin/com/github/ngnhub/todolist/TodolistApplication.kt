@@ -12,4 +12,5 @@ fun main(args: Array<String>) {
     runApplication<TodolistApplication>(*args)
 }
 
-fun <T : Any> T.logger() : Logger = LoggerFactory.getLogger(javaClass)
+val <T : Any> T.logger: Logger
+    get() = LoggerFactory.getLogger(javaClass)

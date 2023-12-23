@@ -10,7 +10,7 @@ class TodoController {
 
     @PostMapping
     fun create() {
-        logger().info("Creates the item")
+        logger.info("Creates the item")
     }
 
     @GetMapping("/{id}")
@@ -20,7 +20,7 @@ class TodoController {
 
     @PutMapping
     fun markAs(status: ItemStatus) {
-        logger().info("Changing status to {}", status)
+        logger.info("Changing status to {}", status)
     }
 
     enum class ItemStatus {
