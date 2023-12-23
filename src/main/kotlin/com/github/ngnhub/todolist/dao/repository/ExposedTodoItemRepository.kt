@@ -3,8 +3,10 @@ package com.github.ngnhub.todolist.dao.repository
 import com.github.ngnhub.todolist.dao.entity.TodoItemEntity
 import com.github.ngnhub.todolist.exception.NotFoundException
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 @Repository
+@Transactional // Exposed requires transaction even for reading. srsly?
 class ExposedTodoItemRepository : TodoItemRepository {
 
     override fun getBy(id: Long): TodoItemEntity {
