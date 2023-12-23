@@ -1,9 +1,10 @@
 package com.github.ngnhub.todolist.controller
 
-import com.github.ngnhub.todolist.dao.entity.TodoItemTable.ItemStatus
-import com.github.ngnhub.todolist.logger
+import com.github.ngnhub.todolist.model.TodoItem
 import com.github.ngnhub.todolist.model.TodoItemCreate
+import com.github.ngnhub.todolist.model.TodoItemUpdate
 import com.github.ngnhub.todolist.service.TodoItemService
+import jakarta.validation.Valid
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -14,17 +15,17 @@ import java.util.*
 class TodoController(private val service: TodoItemService) {
 
     @PostMapping
-    fun create(@RequestBody create: TodoItemCreate) {
+    fun create(@Valid @RequestBody create: TodoItemCreate) {
         service.create(create)
     }
 
     @GetMapping("/{id}")
-    fun getBy(@PathVariable id: Long): Any {
+    fun getBy(@PathVariable id: Long): TodoItem {
         return service.getBy(id)
     }
 
     @PutMapping
-    fun markAs(status: ItemStatus) {
-        logger().info("Changing status to {}", status)
+    fun update(@Valid @RequestBody update: TodoItemUpdate) {
+        service.update(update)
     }
 }

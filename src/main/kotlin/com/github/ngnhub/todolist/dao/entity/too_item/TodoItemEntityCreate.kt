@@ -1,6 +1,6 @@
-package com.github.ngnhub.todolist.dao.entity
+package com.github.ngnhub.todolist.dao.entity.too_item
 
-import com.github.ngnhub.todolist.dao.entity.TodoItemTable.ItemStatus.OPEN
+import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemTable.ItemStatus.OPEN
 import java.time.Instant
 
 data class TodoItemEntityCreate(

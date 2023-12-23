@@ -1,7 +1,8 @@
 package com.github.ngnhub.todolist.dao.repository
 
-import com.github.ngnhub.todolist.dao.entity.TodoItemEntity
-import com.github.ngnhub.todolist.dao.entity.TodoItemEntityCreate
+import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemEntity
+import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemEntityCreate
+import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemEntityUpdate
 import com.github.ngnhub.todolist.exception.NotFoundException
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
@@ -15,23 +16,25 @@ class ExposedTodoItemRepository : TodoItemRepository {
     }
 
     @Transactional
-    override fun create(item: TodoItemEntityCreate) {
+    override fun create(create: TodoItemEntityCreate) {
         TodoItemEntity.new {
-            title = item.title
-            description = item.description
-            createdAt = item.createdAt
-            completeUntil = item.completeUntil
-            status = item.status
+            title = create.title
+            description = create.description
+            createdAt = create.createdAt
+            completeUntil = create.completeUntil
+            status = create.status
         }
     }
 
-//    private fun TodoItemEntityCreate.insertFrom(): TodoItemEntity.() -> Unit {
-//        return {
-//            title = item.title
-//            description = item.description
-//            createdAt = item.createdAt
-//            completeUntil = item.completeUntil
-//            status = item.status
-//        }
-//}
+    @Transactional
+    override fun update(update: TodoItemEntityUpdate) {
+        val found = TodoItemEntity.findById(update.id)
+            ?: throw NotFoundException("Item with id ${update.id} not found")
+        with(found) {
+            title = update.title
+            description = update.description
+            completeUntil = update.completeUntil
+            status = update.status
+        }
+    }
 }

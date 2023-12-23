@@ -1,4 +1,4 @@
-package com.github.ngnhub.todolist.dao.entity
+package com.github.ngnhub.todolist.dao.entity.too_item
 
 import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass

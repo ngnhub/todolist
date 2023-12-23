@@ -1,4 +1,4 @@
-package com.github.ngnhub.todolist.dao.entity
+package com.github.ngnhub.todolist.dao.entity.too_item
 
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.timestamp
