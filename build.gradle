@@ -23,7 +23,7 @@ java {
 repositories {
     mavenCentral()
 }
-apply plugin: 'kotlin-kapt'
+
 dependencies {
     // Spring
     implementation "org.springframework.boot:spring-boot-starter-web"
