@@ -11,7 +11,7 @@ import java.util.*
 
 @Validated
 @RestController
-@RequestMapping("/")
+@RequestMapping("/todo")
 class TodoController(private val service: TodoItemService) {
 
     @PostMapping
