@@ -11,14 +11,10 @@ import org.springframework.transaction.annotation.Transactional
 class ExposedTodoItemRepository : TodoItemRepository {
 
     @Transactional(readOnly = true) // Exposed requires transaction even for reading. srsly?
-    override fun listAll(): List<TodoItemEntity> {
-        return TodoItemEntity.all().toList()
-    }
+    override fun listAll() = TodoItemEntity.all().toList()
 
     @Transactional(readOnly = true)
-    override fun getBy(id: Long): TodoItemEntity {
-        return TodoItemEntity.findById(id) ?: throw NotFoundException("Item with id $id was not found")
-    }
+    override fun getBy(id: Long) = TodoItemEntity.findByIdOrThrow(id)
 
     @Transactional
     override fun create(create: TodoItemEntityCreate) = TodoItemEntity.new {
@@ -31,8 +27,7 @@ class ExposedTodoItemRepository : TodoItemRepository {
 
     @Transactional
     override fun update(update: TodoItemEntityUpdate) {
-        val found = TodoItemEntity.findById(update.id)
-            ?: throw NotFoundException("Item with id ${update.id} not found")
+        val found = TodoItemEntity.findByIdOrThrow(update.id)
         with(found) {
             title = update.title
             description = update.description
@@ -40,4 +35,12 @@ class ExposedTodoItemRepository : TodoItemRepository {
             status = update.status
         }
     }
+
+    override fun remove(id: Long) =
+        TodoItemEntity.findByIdOrThrow(id).delete()
+
+
+    private fun TodoItemEntity.Companion.findByIdOrThrow(id: Long) =
+        findById(id) ?: throw NotFoundException("Item with id $id not found")
+
 }
