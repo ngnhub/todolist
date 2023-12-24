@@ -2,50 +2,95 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize functions on page load
     loadTodos();
 
-    // Attach the submit event to the form
     document.querySelector('#addTodoForm').addEventListener('submit', function (event) {
         event.preventDefault();
         addTodo();
     });
 });
 
-// Function to load tasks
+function createTodoElement(todo) {
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-item');
+
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('title');
+    titleDiv.textContent = `Title: ${todo.title}`;
+
+    const detailsDiv = document.createElement('div');
+    detailsDiv.classList.add('details');
+
+
+    let detailsHTML = '';
+
+    if (todo.description) {
+        detailsHTML += `<p>Description: ${todo.description}</p>`;
+    }
+
+    if (todo.status) {
+        detailsHTML += `<p>Status: ${todo.status}</p>`;
+    }
+
+    if (todo.completeUntil) {
+        detailsHTML += `<p>Deadline: ${todo.completeUntil}</p>`;
+    }
+
+    // Устанавливаем HTML для detailsDiv
+    detailsDiv.innerHTML = detailsHTML;
+    let isDetailsVisible = false;
+    todoItem.addEventListener('click', function (event) {
+        if (isDetailsVisible) {
+            detailsDiv.style.display = 'none';
+        } else {
+            detailsDiv.style.display = 'block';
+        }
+        isDetailsVisible = !isDetailsVisible;
+        event.preventDefault(); // Предотвратить действия по умолчанию
+    });
+
+    todoItem.appendChild(titleDiv);
+    todoItem.appendChild(detailsDiv);
+
+    return todoItem;
+}
+
 function loadTodos() {
     fetch('/api/todo')
         .then(response => response.json())
         .then(todos => {
             const todosContainer = document.getElementById('todo-list');
-            todosContainer.innerHTML = ''; // Clean current list
+            todosContainer.innerHTML = '';
             todos.forEach(todo => {
-                const todoItem = document.createElement('div');
-                todoItem.classList.add('todo-item');
-                todoItem.innerHTML = `
-                <p>Title: ${todo.title}</p>
-                <p>Description: ${todo.description || ''}</p>
-                <p>Status: ${todo.status}</p>
-                <p>Deadline: ${todo.completeUntil || ''}</p>
-            `;
-                todosContainer.appendChild(todoItem);
+                // Преобразование completeUntil из ISO8601 в локальный формат
+                if (todo.completeUntil) {
+                    const isoDate = new Date(todo.completeUntil);
+                    const localDate = isoDate.toLocaleString(); // Локальный формат
+                    todo.completeUntil = localDate;
+                }
+
+                todosContainer.appendChild(createTodoElement(todo));
             });
         })
         .catch(error => console.error('Ошибка:', error));
 }
 
-// Function to add a task
 function addTodo() {
     const form = document.getElementById('addTodoForm');
     const formData = new FormData(form);
 
     const todoData = {};
     formData.forEach((value, key) => {
-        todoData[key] = value ? value : null;
+        // Преобразование completeUntil из локального формата в ISO8601
+        if (key === 'completeUntil') {
+            todoData[key] = value ? new Date(value).toISOString() : null;
+        } else {
+            todoData[key] = value ? value : null;
+        }
     });
 
-    // Send data as JSON
     fetch('/api/todo', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',  // Send JSON app type
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(todoData)
     })
@@ -56,17 +101,8 @@ function addTodo() {
             throw new Error('Network response was not ok.');
         })
         .then(newTodo => {
-            // Add the new task to the list without reloading the page
             const todosContainer = document.getElementById('todo-list');
-            const todoItem = document.createElement('div');
-            todoItem.classList.add('todo-item');
-            todoItem.innerHTML = `
-            <p>Title: ${newTodo.title}</p>
-            <p>Description: ${newTodo.description || ''}</p>
-            <p>Status: ${newTodo.status}</p>
-            <p>Deadline: ${newTodo.completeUntil || ''}</p>
-        `;
-            todosContainer.appendChild(todoItem);
+            todosContainer.appendChild(createTodoElement(newTodo));
         })
         .catch(error => console.error('Error:', error));
 }

@@ -1,3 +1,4 @@
+/* Common */
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #f7f7f7;
@@ -22,15 +23,30 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* List */
 .todo-item {
     border-bottom: 1px solid #eee;
     padding: 10px 0;
+    cursor: pointer;
 }
 
 .todo-item:last-child {
     border-bottom: none;
 }
 
+.title {
+    font-weight: bold;
+    color: #333;
+}
+
+.details {
+    display: none;
+    padding-left: 20px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Forms */
 form > input,
 form > textarea,
 form > button {
@@ -39,7 +55,7 @@ form > button {
     margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* padding inside element */
+    box-sizing: border-box;
 }
 
 form > button {
@@ -54,7 +70,7 @@ form > button:hover {
     border-color: #398439;
 }
 
-/* Additional styles */
+/* Additional */
 .status-open {
     color: #5cb85c;
 }
