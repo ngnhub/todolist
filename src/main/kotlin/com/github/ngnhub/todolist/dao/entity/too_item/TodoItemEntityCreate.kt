@@ -8,5 +8,6 @@ data class TodoItemEntityCreate(
     val description: String?,
     val createdAt: Instant = Instant.now(),
     val completeUntil: Instant?,
-    val status: TodoItemTable.ItemStatus = OPEN
+    val status: TodoItemTable.ItemStatus = OPEN,
+    val remindAt: Instant?,
 )

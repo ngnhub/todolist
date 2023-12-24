@@ -12,5 +12,7 @@ data class TodoItem(
     val createdAt: Instant,
     @field:DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     val completeUntil: Instant?,
-    val status: ItemStatus
+    val status: ItemStatus,
+    @field:DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    val remindAt: Instant?
 )

@@ -8,6 +8,10 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
+// TODO: reminder date
+// TODO: dasboards (opt)
+// TODO: basic auth (opt)
+// TODO: telegram sending and planning
 @Validated
 @RestController
 @RequestMapping("/api/todo")

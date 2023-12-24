@@ -15,7 +15,8 @@ object TodoItemMapper {
         description,
         createdAt,
         completeUntil,
-        status
+        status,
+        remindAt
     )
 
     fun TodoItemUpdate.toEntity() = TodoItemEntityUpdate(
@@ -23,12 +24,14 @@ object TodoItemMapper {
         title,
         description,
         completeUntil,
-        status
+        status,
+        remindAt
     )
 
     fun TodoItemCreate.toCreateEntity() = TodoItemEntityCreate(
         title = title,
         description = description,
-        completeUntil = completeUntil
+        completeUntil = completeUntil,
+        remindAt = remindAt
     )
 }

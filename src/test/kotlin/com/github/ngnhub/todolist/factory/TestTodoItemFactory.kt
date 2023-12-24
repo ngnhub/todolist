@@ -18,10 +18,11 @@ import java.time.temporal.ChronoUnit
 
 object TestTodoItemFactory {
 
-    val createdAt: Instant = ZonedDateTime
+    private val createdAt: Instant = ZonedDateTime
         .of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("CET"))
         .toInstant()
     private val completeUntil: Instant = createdAt.plus(1, ChronoUnit.DAYS)
+    private val remindAt: Instant = createdAt.plus(12, ChronoUnit.HOURS)
 
     fun getTodoItemEntity(): TodoItemEntity {
         val entity = mockk<TodoItemEntity>(relaxed = true)
@@ -40,13 +41,15 @@ object TestTodoItemFactory {
         "Test description",
         createdAt,
         completeUntil,
-        DONE
+        DONE,
+        remindAt
     )
 
     fun getTodoItemCreate() = TodoItemCreate(
         "Test title",
         "Test description",
         completeUntil,
+        remindAt
     )
 
     fun getTodoItemUpdate() = TodoItemUpdate(
@@ -54,6 +57,7 @@ object TestTodoItemFactory {
         "Test title",
         "Test description",
         completeUntil,
-        DONE
+        DONE,
+        remindAt
     )
 }

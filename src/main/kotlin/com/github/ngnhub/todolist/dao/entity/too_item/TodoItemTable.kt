@@ -9,6 +9,7 @@ object TodoItemTable : LongIdTable("todo_item") {
     val createdAt = timestamp("created_at")
     val completeUntil = timestamp("complete_until").nullable()
     val status = enumerationByName<ItemStatus>("status", 20)
+    val remindAt = timestamp("remind_at").nullable()
 
     enum class ItemStatus {
         OPEN, DONE, CANCELED
