@@ -40,6 +40,7 @@ class ExposedTodoItemRepository : TodoItemRepository {
         }
     }
 
+    @Transactional
     override fun delete(id: Long) =
         TodoItemEntity.findByIdOrThrow(id).delete()
 

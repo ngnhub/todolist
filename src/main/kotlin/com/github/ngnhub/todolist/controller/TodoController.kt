@@ -8,11 +8,6 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-// TODO: reminder date
-// TODO: remove item
-// TODO: dasboards (opt)
-// TODO: basic auth (opt)
-// TODO: telegram sending and planning
 @Validated
 @RestController
 @RequestMapping("/api/todo")
@@ -30,6 +25,6 @@ class TodoController(private val service: TodoItemService) {
     @PutMapping
     fun update(@Valid @RequestBody update: TodoItemUpdate) = service.update(update)
 
-    @DeleteMapping
-    fun delete(id: Long) = service.delete(id)
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Long) = service.delete(id)
 }
