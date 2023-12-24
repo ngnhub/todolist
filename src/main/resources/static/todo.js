@@ -30,7 +30,15 @@ function createTodoElement(todo) {
     }
 
     if (todo.completeUntil) {
-        detailsHTML += `<p>Deadline: ${todo.completeUntil}</p>`;
+        const isoDate = new Date(todo.completeUntil);
+        const localDate = isoDate.toLocaleString();
+        detailsHTML += `<p>Deadline: ${localDate}</p>`;
+    }
+
+    if (todo.remindAt) {
+        const isoDate = new Date(todo.remindAt);
+        const localDate = isoDate.toLocaleString();
+        detailsHTML += `<p>Reminded for: ${localDate}</p>`;
     }
 
     // Устанавливаем HTML для detailsDiv
@@ -50,7 +58,6 @@ function createTodoElement(todo) {
     deleteIcon.classList.add('delete-icon');
     deleteIcon.innerHTML = '&#128465;'; // trash symbol code
 
-    // Добавляем обработчик клика на иконку мусорного ведра
     deleteIcon.addEventListener('click', function (event) {
         event.stopPropagation();
         deleteTodo(todo.id);
@@ -88,19 +95,12 @@ function loadTodos() {
             const todosContainer = document.getElementById('todo-list');
             todosContainer.innerHTML = '';
             todos.forEach(todo => {
-                // from iso to local date time
-                if (todo.completeUntil) {
-                    const isoDate = new Date(todo.completeUntil);
-                    const localDate = isoDate.toLocaleString();
-                    todo.completeUntil = localDate;
-                }
-
                 const todoElement = createTodoElement(todo);
-                todoElement.dataset.todoId = todo.id; // Добавляем data-todo-id
+                todoElement.dataset.todoId = todo.id;
                 todosContainer.appendChild(todoElement);
             });
         })
-        .catch(error => console.error('Ошибка:', error));
+        .catch(error => console.error('Error:', error));
 }
 
 function addTodo() {
@@ -110,7 +110,7 @@ function addTodo() {
     const todoData = {};
     formData.forEach((value, key) => {
         // from local date time to iso
-        if (key === 'completeUntil') {
+        if (key === 'completeUntil' || key === 'remindAt') {
             todoData[key] = value ? new Date(value).toISOString() : null;
         } else {
             todoData[key] = value ? value : null;
