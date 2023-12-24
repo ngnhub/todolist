@@ -22,4 +22,7 @@ class TodoItemServiceImpl(private val repository: TodoItemRepository) : TodoItem
 
     override fun update(update: TodoItemUpdate) =
         repository.update(update.toEntity())
+
+    override fun delete(id: Long) =
+        repository.delete(id)
 }

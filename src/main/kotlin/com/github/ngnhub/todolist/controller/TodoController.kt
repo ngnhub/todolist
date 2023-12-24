@@ -29,4 +29,7 @@ class TodoController(private val service: TodoItemService) {
 
     @PutMapping
     fun update(@Valid @RequestBody update: TodoItemUpdate) = service.update(update)
+
+    @DeleteMapping
+    fun delete(id: Long) = service.delete(id)
 }

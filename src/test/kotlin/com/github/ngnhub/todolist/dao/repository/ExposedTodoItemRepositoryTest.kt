@@ -48,7 +48,7 @@ class ExposedTodoItemRepositoryTest {
     }
 
     @Test
-    fun `create should save a new TodoItemEntity`() {
+    fun `create should invoke TodoItemEntity#new method`() {
         // given
         val create = getTodoItemEntityCreate()
         mockkObject(TodoItemEntity.Companion)
@@ -69,28 +69,28 @@ class ExposedTodoItemRepositoryTest {
     }
 
     @Test
-    fun `remove should invoke entity delete() method`() {
+    fun `delete should invoke entity todoItemEntity#delete method`() {
         // given
         mockkObject(TodoItemEntity.Companion)
         val todoItemEntity = getTodoItemEntity()
         every { TodoItemEntity.findById(DEFAULT_ID) } returns todoItemEntity
 
         // when
-        repository.remove(DEFAULT_ID)
+        repository.delete(DEFAULT_ID)
 
         // then
         verify(exactly = 1) { todoItemEntity.delete() }
     }
 
     @Test
-    fun `remove should throw an exc if id is not found`() {
+    fun `delete should throw an exc if id is not found`() {
         // given
         mockkObject(TodoItemEntity.Companion)
         every { TodoItemEntity.Companion.findById(any(Long::class)) } returns null
         val todoItemEntity = getTodoItemEntity()
 
         // when
-        val exc = assertThrows<NotFoundException> { repository.remove(DEFAULT_ID) }
+        val exc = assertThrows<NotFoundException> { repository.delete(DEFAULT_ID) }
 
         // then
         assertEquals("Item with id $DEFAULT_ID not found", exc.message)

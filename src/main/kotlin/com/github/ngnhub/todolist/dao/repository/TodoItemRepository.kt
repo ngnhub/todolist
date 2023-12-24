@@ -14,5 +14,5 @@ interface TodoItemRepository {
 
     fun update(update: TodoItemEntityUpdate)
 
-    fun remove(id: Long)
+    fun delete(id: Long)
 }

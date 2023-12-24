@@ -13,4 +13,6 @@ interface TodoItemService {
     fun create(create: TodoItemCreate): TodoItem
 
     fun update(update: TodoItemUpdate)
+
+    fun delete(id: Long)
 }
