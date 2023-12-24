@@ -12,4 +12,5 @@ class TodoItemEntity(id: EntityID<Long>) : Entity<Long>(id) {
     var createdAt by TodoItemTable.createdAt
     var completeUntil by TodoItemTable.completeUntil
     var status by TodoItemTable.status
+    var remindAt by TodoItemTable.remindAt
 }

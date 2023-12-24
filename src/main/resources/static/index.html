@@ -15,9 +15,14 @@
 
     <h2>Add the task</h2>
     <form id="addTodoForm">
-        <input type="text" name="title" placeholder="Title" required/>
-        <textarea name="description" placeholder="Description"></textarea>
+        <label>Title</label>
+        <input type="text" name="title" required/>
+        <label>Description (optional)</label>
+        <textarea name="description"></textarea>
+        <label>Complete until (optional)</label>
         <input type="datetime-local" name="completeUntil"/>
+        <label>Remind at (optional)</label>
+        <input type="datetime-local" name="remindAt"/>
         <button type="submit">Add</button>
     </form>
 </div>

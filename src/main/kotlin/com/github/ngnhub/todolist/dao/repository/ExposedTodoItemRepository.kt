@@ -27,6 +27,7 @@ class ExposedTodoItemRepository : TodoItemRepository {
             createdAt = create.createdAt
             completeUntil = create.completeUntil
             status = create.status
+            remindAt = create.remindAt
         }
 
     @Transactional
@@ -37,6 +38,7 @@ class ExposedTodoItemRepository : TodoItemRepository {
             description = update.description
             completeUntil = update.completeUntil
             status = update.status
+            remindAt = update.remindAt
         }
     }
 

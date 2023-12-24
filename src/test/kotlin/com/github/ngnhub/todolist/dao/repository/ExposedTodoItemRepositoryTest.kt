@@ -43,7 +43,7 @@ class ExposedTodoItemRepositoryTest {
         val exc = assertThrows<NotFoundException> { repository.getBy(DEFAULT_ID) }
 
         // then
-        assertEquals("Item with id $DEFAULT_ID was not found", exc.message)
+        assertEquals("Item with id $DEFAULT_ID not found", exc.message)
         verify(exactly = 1) { TodoItemEntity.findById(DEFAULT_ID) }
     }
 

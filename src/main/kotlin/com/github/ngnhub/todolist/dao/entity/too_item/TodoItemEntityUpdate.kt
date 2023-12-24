@@ -7,5 +7,6 @@ class TodoItemEntityUpdate(
     val title: String,
     val description: String?,
     val completeUntil: Instant?,
-    val status: TodoItemTable.ItemStatus
+    val status: TodoItemTable.ItemStatus,
+    val remindAt: Instant?,
 )

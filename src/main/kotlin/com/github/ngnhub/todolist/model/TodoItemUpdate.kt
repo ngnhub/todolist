@@ -12,5 +12,8 @@ data class TodoItemUpdate(
     @field:Future
     @field:DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     val completeUntil: Instant?,
-    val status: ItemStatus
+    val status: ItemStatus,
+    @Future // TODO: validation - before completeUntil
+    @field:DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    val remindAt: Instant?
 )
