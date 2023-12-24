@@ -6,9 +6,11 @@ import com.github.ngnhub.todolist.dao.entity.too_item.TodoItemEntityUpdate
 
 interface TodoItemRepository {
 
-    fun getBy(id: Long) : TodoItemEntity
+    fun listAll(): List<TodoItemEntity>
 
-    fun create(create: TodoItemEntityCreate)
+    fun getBy(id: Long): TodoItemEntity
+
+    fun create(create: TodoItemEntityCreate): TodoItemEntity
 
     fun update(update: TodoItemEntityUpdate)
 }
