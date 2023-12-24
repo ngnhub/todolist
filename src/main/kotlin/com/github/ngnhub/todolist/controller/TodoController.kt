@@ -1,6 +1,5 @@
 package com.github.ngnhub.todolist.controller
 
-import com.github.ngnhub.todolist.model.TodoItem
 import com.github.ngnhub.todolist.model.TodoItemCreate
 import com.github.ngnhub.todolist.model.TodoItemUpdate
 import com.github.ngnhub.todolist.service.TodoItemService
@@ -11,21 +10,18 @@ import java.util.*
 
 @Validated
 @RestController
-@RequestMapping("/todo")
+@RequestMapping("/api/todo")
 class TodoController(private val service: TodoItemService) {
 
+    @GetMapping
+    fun listAll() = service.listAll()
+
     @PostMapping
-    fun create(@Valid @RequestBody create: TodoItemCreate) {
-        service.create(create)
-    }
+    fun create(@Valid @RequestBody create: TodoItemCreate) = service.create(create)
 
     @GetMapping("/{id}")
-    fun getBy(@PathVariable id: Long): TodoItem {
-        return service.getBy(id)
-    }
+    fun getBy(@PathVariable id: Long) = service.getBy(id)
 
     @PutMapping
-    fun update(@Valid @RequestBody update: TodoItemUpdate) {
-        service.update(update)
-    }
+    fun update(@Valid @RequestBody update: TodoItemUpdate) = service.update(update)
 }

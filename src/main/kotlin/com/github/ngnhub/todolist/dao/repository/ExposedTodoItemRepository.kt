@@ -11,19 +11,22 @@ import org.springframework.transaction.annotation.Transactional
 class ExposedTodoItemRepository : TodoItemRepository {
 
     @Transactional(readOnly = true) // Exposed requires transaction even for reading. srsly?
+    override fun listAll(): List<TodoItemEntity> {
+        return TodoItemEntity.all().toList()
+    }
+
+    @Transactional(readOnly = true)
     override fun getBy(id: Long): TodoItemEntity {
         return TodoItemEntity.findById(id) ?: throw NotFoundException("Item with id $id was not found")
     }
 
     @Transactional
-    override fun create(create: TodoItemEntityCreate) {
-        TodoItemEntity.new {
-            title = create.title
-            description = create.description
-            createdAt = create.createdAt
-            completeUntil = create.completeUntil
-            status = create.status
-        }
+    override fun create(create: TodoItemEntityCreate) = TodoItemEntity.new {
+        title = create.title
+        description = create.description
+        createdAt = create.createdAt
+        completeUntil = create.completeUntil
+        status = create.status
     }
 
     @Transactional

@@ -1,0 +1,84 @@
+/* Common */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* List */
+.todo-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.title {
+    font-weight: bold;
+    color: #333;
+}
+
+.details {
+    display: none;
+    padding-left: 20px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Forms */
+form > input,
+form > textarea,
+form > button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form > button {
+    background-color: #5cb85c;
+    color: white;
+    border-color: #4cae4c;
+    cursor: pointer;
+}
+
+form > button:hover {
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+/* Additional */
+.status-open {
+    color: #5cb85c;
+}
+
+.status-done {
+    color: #d9534f;
+}
+
+.status-canceled {
+    color: #f0ad4e;
+}

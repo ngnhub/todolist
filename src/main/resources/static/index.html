@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Todo List</title>
+    <title>TODO List</title>
+    <link rel="stylesheet" href="/style.css"/>
 </head>
 <body>
-<h1>Todo List</h1>
-<div id="todoList"></div>
-<input type="text" id="newTodoTitle" placeholder="Title">
-<input type="text" id="newTodoDescription" placeholder="Description">
-<button onclick="createTodo()">Add Todo</button>
 
-<script src="script.js"></script>
+<div class="container">
+    <h2>TODO List</h2>
+    <div id="todo-list">
+
+    </div>
+
+    <h2>Add the task</h2>
+    <form id="addTodoForm">
+        <input type="text" name="title" placeholder="Title" required/>
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="datetime-local" name="completeUntil"/>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+<script src="/todo.js"></script>
 </body>
 </html>

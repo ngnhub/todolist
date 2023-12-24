@@ -29,6 +29,20 @@ class TodoItemServiceImplTest {
     }
 
     @Test
+    fun `listAll should return TodoItems`() {
+        // given
+        val entity = getTodoItemEntity()
+        every { repository.listAll() } returns listOf(entity)
+        val expected = listOf(entity.toDto())
+
+        // when
+        val actual = service.listAll()
+
+        // then
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun `getBy id should return a TodoItem`() {
         // given
         val expectedTodoItem = getTodoItemEntity()
@@ -47,12 +61,14 @@ class TodoItemServiceImplTest {
         // given
         val create = getTodoItemCreate()
         val slot = slot<TodoItemEntityCreate>()
-        every { repository.create(capture(slot)) } returns Unit
+        val item = getTodoItemEntity()
+        every { repository.create(capture(slot)) } returns item
 
         // when
-        service.create(create)
+        val created = service.create(create)
 
         // then
+        assertEquals(item.toDto(), created)
         val captured = slot.captured
         val actual = create.toCreateEntity()
 
