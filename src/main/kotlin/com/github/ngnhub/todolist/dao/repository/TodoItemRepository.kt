@@ -13,4 +13,6 @@ interface TodoItemRepository {
     fun create(create: TodoItemEntityCreate): TodoItemEntity
 
     fun update(update: TodoItemEntityUpdate)
+
+    fun delete(id: Long)
 }

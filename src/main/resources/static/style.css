@@ -25,9 +25,19 @@ h2 {
 
 /* List */
 .todo-item {
+    position: relative;
     border-bottom: 1px solid #eee;
-    padding: 10px 0;
+    padding: 10px 40px 10px 0;
     cursor: pointer;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #d9534f;
 }
 
 .todo-item:last-child {

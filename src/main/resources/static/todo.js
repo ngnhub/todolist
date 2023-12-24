@@ -14,11 +14,10 @@ function createTodoElement(todo) {
 
     const titleDiv = document.createElement('div');
     titleDiv.classList.add('title');
-    titleDiv.textContent = `Title: ${todo.title}`;
+    titleDiv.textContent = `${todo.title}`;
 
     const detailsDiv = document.createElement('div');
     detailsDiv.classList.add('details');
-
 
     let detailsHTML = '';
 
@@ -47,10 +46,39 @@ function createTodoElement(todo) {
         event.preventDefault(); // Предотвратить действия по умолчанию
     });
 
+    const deleteIcon = document.createElement('div');
+    deleteIcon.classList.add('delete-icon');
+    deleteIcon.innerHTML = '&#128465;'; // trash symbol code
+
+    // Добавляем обработчик клика на иконку мусорного ведра
+    deleteIcon.addEventListener('click', function (event) {
+        event.stopPropagation();
+        deleteTodo(todo.id);
+        todoItem.remove();
+    });
+
     todoItem.appendChild(titleDiv);
     todoItem.appendChild(detailsDiv);
+    todoItem.appendChild(deleteIcon);
 
     return todoItem;
+}
+
+function deleteTodo(todoId) {
+    fetch(`/api/todo/${todoId}`, {
+        method: 'DELETE',
+    })
+        .then(response => {
+            if (response.ok) {
+                const todoItem = document.querySelector(`[data-todo-id="${todoId}"]`);
+                if (todoItem) {
+                    todoItem.remove();
+                }
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 function loadTodos() {
@@ -60,14 +88,16 @@ function loadTodos() {
             const todosContainer = document.getElementById('todo-list');
             todosContainer.innerHTML = '';
             todos.forEach(todo => {
-                // Преобразование completeUntil из ISO8601 в локальный формат
+                // from iso to local date time
                 if (todo.completeUntil) {
                     const isoDate = new Date(todo.completeUntil);
-                    const localDate = isoDate.toLocaleString(); // Локальный формат
+                    const localDate = isoDate.toLocaleString();
                     todo.completeUntil = localDate;
                 }
 
-                todosContainer.appendChild(createTodoElement(todo));
+                const todoElement = createTodoElement(todo);
+                todoElement.dataset.todoId = todo.id; // Добавляем data-todo-id
+                todosContainer.appendChild(todoElement);
             });
         })
         .catch(error => console.error('Ошибка:', error));
@@ -79,7 +109,7 @@ function addTodo() {
 
     const todoData = {};
     formData.forEach((value, key) => {
-        // Преобразование completeUntil из локального формата в ISO8601
+        // from local date time to iso
         if (key === 'completeUntil') {
             todoData[key] = value ? new Date(value).toISOString() : null;
         } else {
