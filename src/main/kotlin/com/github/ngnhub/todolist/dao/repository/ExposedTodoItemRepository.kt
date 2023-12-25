@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 class ExposedTodoItemRepository : TodoItemRepository {
 
     @Transactional(readOnly = true)
-    // Since Exposed requires transaction anyway, there is no reason to move it on the service layer
+    // Since Exposed requires transaction anyway, there is no reason to move it to the service layer
     override fun listAll() =
         TodoItemEntity.all().toList()
 
